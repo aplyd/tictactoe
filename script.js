@@ -34,11 +34,12 @@ const displayController = (() => {
 displayController.renderDisplay();
 
 const Player = (name, xoro) => {
-    //TODO - instead of updating textContent, update gameBoard array and then render
+    
     let currentMove = (spaceClicked) => {
-        spaceClicked.textContent = xoro;
         let clickedIndex = displayController.spacesArr.indexOf(spaceClicked);
-        console.log(clickedIndex);
+        //update gameboard with player move and render
+        game.gameBoard[clickedIndex] = xoro;
+        displayController.renderDisplay();
     }
     return {
         name,
