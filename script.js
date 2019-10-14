@@ -14,9 +14,22 @@ const game = (() => {
 })();
 
 const displayController = (() => {
+    //get spaces and create array from nodelist
     const spaces = document.querySelectorAll('.spaces');
-     //create array from nodelist
     let spacesArr = Array.from(spaces);
+
+    //
+    spaces.forEach( element => {
+        element.addEventListener('click', (e) => {
+            //checks who's turn it is and then plays on selected space
+            if (game.counter % 2 == 0) {
+                user1.currentMove(e.target);
+            } else {
+                user2.currentMove(e.target);
+            }
+            game.counter++;
+        })
+    })
 
     //assigns each space 
     const renderDisplay = () => {
@@ -47,21 +60,6 @@ const Player = (name, xoro) => {
         currentMove
     }
 }
-
-//TODO - could this block be somewhere in the game engine instead of global? 
-displayController.spaces.forEach( element => {
-    element.addEventListener('click', (e) => {
-        //checks who's turn it is and then plays on selected space
-        if (game.counter % 2 == 0) {
-            user1.currentMove(e.target);
-        } else {
-            user2.currentMove(e.target);
-        }
-        //increments who's turn
-        game.counter++;
-        
-    })
-})
 
 //creates objects for each player and assigns their symbol
 let user1 = Player('user1', game.x);
