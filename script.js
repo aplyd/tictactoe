@@ -18,7 +18,7 @@ const displayController = (() => {
     const spaces = document.querySelectorAll('.spaces');
     let spacesArr = Array.from(spaces);
 
-    //
+    //plays each move on selected space
     spaces.forEach( element => {
         element.addEventListener('click', (e) => {
             //checks who's turn it is and then plays on selected space
@@ -27,11 +27,10 @@ const displayController = (() => {
             } else {
                 user2.currentMove(e.target);
             }
-            game.counter++;
         })
     })
 
-    //assigns each space 
+    //assigns each space players move from gameboard array
     const renderDisplay = () => {
         for (i = 0; i<spaces.length; i++) {
             spaces[i].textContent = game.gameBoard[i];
@@ -51,8 +50,11 @@ const Player = (name, xoro) => {
     let currentMove = (spaceClicked) => {
         let clickedIndex = displayController.spacesArr.indexOf(spaceClicked);
         //update gameboard with player move and render
-        game.gameBoard[clickedIndex] = xoro;
-        displayController.renderDisplay();
+        if (!game.gameBoard[clickedIndex]) {
+            game.gameBoard[clickedIndex] = xoro;
+            displayController.renderDisplay();
+            game.counter++;
+        }
     }
     return {
         name,
