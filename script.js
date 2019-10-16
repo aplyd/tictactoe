@@ -120,15 +120,12 @@ const Player = (name, xoro) => {
             game.gameBoard[clickedIndex] = xoro;
             displayController.renderDisplay();
             game.winnerCheck();
-            
-            console.log()
+            game.counter++
+
             if (game.counter > 8) {
-                console.log('over 8');
                 displayController.showTie();
-            } else {
-                console.log('under 8');
-                game.counter++;
-            }
+            } 
+
         }
     }
     return {
