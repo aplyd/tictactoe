@@ -1,3 +1,19 @@
+let gameContainer = document.querySelector('#game-container');
+let nameContainer = document.querySelector('#name-container');
+gameContainer.style.display = 'none';
+let p1input = document.getElementById('p1input');
+let p2input = document.getElementById('p2input');
+let p1name = document.getElementById('p1name');
+let p2name = document.getElementById('p2name');
+let playerOneName, playerTwoName;
+
+let xGoesFirst = document.createElement('p');
+
+document.getElementById('play-game').addEventListener('click', () => {
+    startGame.playGame();
+})
+
+
 const game = (() => {
     const x = 'X';
     const o = 'O';
@@ -36,9 +52,6 @@ const game = (() => {
     }
 })();
 
-
-
-
 const displayController = (() => {
     //get spaces and create array from nodelist
     const spaces = document.querySelectorAll('.spaces');
@@ -56,6 +69,8 @@ const displayController = (() => {
             } else {
                 user2.currentMove(e.target);
             }
+
+            xGoesFirst.textContent = '';
         })
     })
 
@@ -76,7 +91,6 @@ const displayController = (() => {
     }
 
     const showTie = () => {
-        console.log('show tie ran');
         winnerMessage.textContent = 'cats game';
         announceWinner.style.display = 'block';
         reset();
@@ -94,7 +108,9 @@ const displayController = (() => {
 
             game.counter = 0;
 
-            renderDisplay();           
+            renderDisplay();
+            
+            startGame.goesFirst();
         })
     }
 
@@ -109,7 +125,6 @@ const displayController = (() => {
 })();
 
 displayController.renderDisplay();
-
 
 const Player = (name, xoro) => {
     
@@ -136,5 +151,40 @@ const Player = (name, xoro) => {
 }
 
 //creates objects for each player and assigns their symbol
-let user1 = Player('user1', game.x);
-let user2 = Player('user2', game.o);
+let user1 = Player(name, game.x);
+let user2 = Player(name, game.o);
+
+const startGame = (() => {
+    const playGame = () => {
+    document.querySelector('#play-game').style.display = 'none';
+    playerOneName = p1input.value;
+    playerTwoName = p2input.value;
+
+    user1.name = playerOneName;
+    user2.name = playerTwoName;
+
+    //go away
+    nameContainer.innerHTML = '';
+    p1name.style.display = 'none';
+    p2name.style.display = 'none';
+    gameContainer.style.display = 'grid';
+
+    goesFirst();
+    }
+
+    const goesFirst = () => {
+        xGoesFirst.setAttribute('id', 'xgoesfirst');
+        nameContainer.appendChild(xGoesFirst);
+        
+        if (user1.name) {
+            xGoesFirst.textContent = user1.name + ' goes first';
+        } else {
+            xGoesFirst.textContent = 'X goes first';
+        }
+    }
+
+    return {
+        playGame,
+        goesFirst
+    }
+})();
