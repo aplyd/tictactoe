@@ -30,7 +30,12 @@ const game = (() => {
                 gameBoard[2] == x && gameBoard[5] == x && gameBoard[8] == x ||
                 gameBoard[0] == x && gameBoard[4] == x && gameBoard[8] == x ||
                 gameBoard[2] == x && gameBoard[4] == x && gameBoard[6] == x ) {
+                    if (user1.name) {
                     displayController.showWinner(user1.name);
+                    } else {
+                        displayController.showWinner(x);
+                    }
+                    return;
             } else if (gameBoard[0] == x && gameBoard[1] == x && gameBoard[2] == x ||
                 gameBoard[3] == o && gameBoard[4] == o && gameBoard[5] == o ||
                 gameBoard[6] == o && gameBoard[7] == o && gameBoard[8] == o ||
@@ -39,8 +44,15 @@ const game = (() => {
                 gameBoard[2] == o && gameBoard[5] == o && gameBoard[8] == o ||
                 gameBoard[0] == o && gameBoard[4] == o && gameBoard[8] == o ||
                 gameBoard[2] == o && gameBoard[4] == o && gameBoard[6] == o) {
+                    if (user2.name) {
                     displayController.showWinner(user2.name);
-                }
+                    } else {
+                        displayController.showWinner(o);
+                    }
+                    return;
+            } else if (game.counter > 8) {
+                displayController.showTie();
+            }
     }
 
     return {
@@ -134,12 +146,13 @@ const Player = (name, xoro) => {
         if (!game.gameBoard[clickedIndex]) {
             game.gameBoard[clickedIndex] = xoro;
             displayController.renderDisplay();
+            game.counter++;
             game.winnerCheck();
-            game.counter++
 
-            if (game.counter > 8) {
-                displayController.showTie();
-            } 
+            
+            // if (game.counter > 8) {
+            //     displayController.showTie();
+            // } 
 
         }
     }

@@ -21,6 +21,7 @@ body {
     align-content: center;
     justify-content: center;
     margin: 0 auto;
+    padding-bottom: 10px;
 }
 
 #p1input {
@@ -53,6 +54,7 @@ body {
     grid-row: 2;
     text-transform: lowercase;
     font-size: 24px;
+    text-align: center;
 }
 
 #game-container {
@@ -63,7 +65,7 @@ body {
     align-content: center;
     justify-content: center;
     margin: 0 auto;
-    
+    padding-top: -70px;
 }
 
 .spaces {
@@ -74,8 +76,6 @@ body {
     color: black;
     font-size: 40px;
     text-align: center;
-    padding-top: 80px;
-
 }
 
 #announce-winner {
